@@ -2,13 +2,16 @@
 
 namespace Database\Factories;
 
+use App\Models\Contact;
+use App\Models\ContactEmail;
+use App\Models\ContactNote;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class UserFactory extends Factory
+class ContactFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,8 +25,26 @@ class UserFactory extends Factory
             'last_name' => fake()->lastName(),
             'address' => fake()->address(),
             'country' => fake()->country(),
-            'phone_number' => fake()->phoneNumber()
+            'phone_number' => fake()->phoneNumber(),
+            'country_code' => '0047',
+            'date_of_birth' => fake()->date()
         ];
+    }
+
+    public function withEmails($count)
+    {
+        $this->afterCreating->push(function(Contact $contact) use ($count) {
+            $email = ContactEmail::factory()->count($count)->withContact($contact)->create();
+        });
+        return $this;
+    }
+
+    public function withNotes($count)
+    {
+        $this->afterCreating->push(function(Contact $contact) use ($count) {
+            $note = ContactNote::factory()->count($count)->withContact($contact)->create();
+        });
+        return $this;
     }
 
     // /**

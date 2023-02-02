@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Contact;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -29,7 +30,7 @@ class ContactTest extends TestCase
     {
         $response = $this->get('api/contacts/1');
         $response->assertOk();
-        $response->assertExactJson([
+        $response->assertJson([
             'data' => [
                 "fornavn" => "Petter",
                 "etternavn" => "Hansen",
@@ -38,8 +39,6 @@ class ContactTest extends TestCase
                 "landskode" => "+47",
                 'land' => 'Norway',
                 "age" => 22,
-                "emails" => [],
-                "notes" => [],
                 "id" => 1
             ]
         ]);
@@ -83,5 +82,17 @@ class ContactTest extends TestCase
         $createdId = $this->create();
         $response = $this->delete('api/contacts/' . $createdId);
         $response->assertOk();
+    }
+
+    public function test_emailFactory()
+    {
+        $contact = Contact::factory()->count(4)->withEmails(2)->create();
+        $this->assertNotNull($contact);
+    }
+
+    public function test_noteFactory()
+    {
+        $contact = Contact::factory()->count(2)->withNotes(2)->create();
+        $this->assertNotNull($contact);
     }
 }

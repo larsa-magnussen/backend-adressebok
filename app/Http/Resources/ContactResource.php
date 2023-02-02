@@ -24,9 +24,9 @@ class ContactResource extends JsonResource
             'land' => $this->country,
             'tlf' => $this->country_code . $this->phone_number,
             'landskode' => $this->country_code,
-            'age' => $this->age,
+            'alder' => $this->age,
             'emails' => $this->emails,
-            'notes' => $this->notes,
+            'notater' => $this->notes,
             'id' => $this->id
         ];
     }
