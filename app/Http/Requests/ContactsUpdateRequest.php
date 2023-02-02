@@ -26,12 +26,12 @@ class ContactsUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'=>['string', 'max:255'],
-            'last_name'=>['string', 'max:255'],
-            'address'=>['string', 'max:255'],
-            'country'=>['string', 'max:255'],
-            'phone_number'=>['string', 'max:20', 'min:5', Rule::unique('contacts', 'phone_number')],
-            'date_of_birth'=>['date']
+            'first_name' => ['string', 'max:255'],
+            'last_name' => ['string', 'max:255'],
+            'address' => ['string', 'max:255'],
+            'country' => ['string', 'max:255'],
+            'phone_number' => ['string', 'max:20', 'min:5', Rule::unique('contacts', 'phone_number')],
+            'date_of_birth' => ['date']
         ];
     }
 }

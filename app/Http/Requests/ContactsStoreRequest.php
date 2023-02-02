@@ -28,12 +28,13 @@ class ContactsStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'=>['required', 'string', 'max:255'],
-            'last_name'=>['required', 'string', 'max:255'],
-            'address'=>['required', 'string', 'max:255'],
-            'country'=>['required', 'string', 'max:255'],
-            'phone_number'=>['required', 'string', 'max:20', 'min:5', Rule::unique('contacts', 'phone_number')],
-            'date_of_birth'=>['required', 'date']
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:20', 'min:5', Rule::unique('contacts', 'phone_number')],
+            'date_of_birth' => ['required', 'date'],
+            'country_code' => ['required', 'string']
         ];
     }
 }

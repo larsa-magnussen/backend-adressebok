@@ -57,9 +57,8 @@ class ContactsController extends Controller
      */
 
     //finner personen i databasen basert på id i url, her "3": http://127.0.0.1:8000/api/contacts/3
-    public function show($id)
+    public function show(Contact $contact)
     {
-        $contact = Contact::find($id);
         return ContactResource::make($contact);
     }
 
@@ -70,9 +69,10 @@ class ContactsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ContactsUpdateRequest $request, $id)
+    public function update(ContactsUpdateRequest $request, Contact $contact)
     {
-        return Contact::findOrFail($id)->update($request->validated());
+        $contact->update($request->validated());
+        return ContactResource::make($contact);
     }
 
     /**
@@ -84,8 +84,8 @@ class ContactsController extends Controller
 
     //sletter en person fra databasen basert på id i url, her "3": http://127.0.0.1:8000/api/contacts/3
     //i tillegg returnerer den også kontakten som ble slettet
-    public function destroy($id)
+    public function destroy(Contact $contact)
     {
-        return Contact::findOrFail($id)->delete();
+        return $contact->delete();
     }
 }
