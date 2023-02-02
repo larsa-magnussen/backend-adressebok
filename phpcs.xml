@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<ruleset name="Symfony">
+  <description>The Symfony coding standard for PHP-CodeSniffer. Found here: https://github.com/djoos/Symfony-coding-standard/blob/master/Symfony/ruleset.xml</description>
+
+  <arg name="tab-width" value="4" />
+  <arg name="encoding" value="UTF-8" />
+
+  <!-- There should not be any code in the bundle Resources directory. -->
+  <exclude-pattern>*/Resources/*</exclude-pattern>
+
+  <!-- Symfony follows the standards defined in the PSR-0, PSR-1 and PSR-2 documents. -->
+  <!-- Include the whole PSR-1 standard -->
+  <rule ref="PSR1"/>
+
+  <!-- Include the whole PSR-12 standard -->
+  <rule ref="PSR12"/>
+
+  <!-- Include the whole PSR-2 standard -->
+  <rule ref="PSR2">
+    <exclude name="PSR2.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBrace"/>
+  </rule>
+
+  <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+    <exclude-pattern>./tests/*</exclude-pattern>
+  </rule>
+
+  <!--
+    See the [documented coding standard](http://symfony.com/doc/current/contributing/code/standards.html)
+    -->
+  <rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+        <property name="tabIndent" value="false" />
+    </properties>
+  </rule>
+
+  <rule ref="Generic.Formatting.SpaceAfterNot" />
+
+  <rule ref="Generic.Formatting.SpaceAfterCast" />
+  <rule ref="PSR12.Functions.ReturnTypeDeclaration" />
+  <rule ref="PSR12.ControlStructures.ControlStructureSpacing" />
+
+  <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+  <rule ref="Generic.Formatting.SpaceAfterCast"/>
+  <rule ref="Generic.Functions.CallTimePassByReference"/>
+  <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+  <rule ref="Generic.PHP.LowerCaseConstant"/>
+  <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
+  <rule ref="Squiz.ControlStructures.ControlSignature"/>
+  <rule ref="Squiz.ControlStructures.ForEachLoopDeclaration"/>
+  <rule ref="Squiz.ControlStructures.ForLoopDeclaration"/>
+  <rule ref="Squiz.ControlStructures.LowercaseDeclaration"/>
+  <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+  <rule ref="Squiz.Scope.MemberVarScope"/>
+  <rule ref="Squiz.Scope.MethodScope"/>
+
+  <!-- We provide our own subclass of PEAR's ClassComment and FunctionComment sniff, but these will do: -->
+  <rule ref="PEAR.Commenting.InlineComment"/>
+
+  <!-- Import Zend coding standard (which in turn imports PEAR) -->
+  <rule ref="Zend">
+    <!-- but exclude their code analyzer -->
+    <exclude name="Zend.Debug.CodeAnalyzer"/>
+    <!-- covered by Squiz ControlSignature, which enforces try/catch as well -->
+    <exclude name="PEAR.ControlStructures.ControlSignature"/>
+    <exclude name="PEAR.Commenting.FunctionComment.SpacingBeforeTags"/>
+    <!-- covered by Squiz FunctionDeclarationSniff -->
+    <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman.BraceOnSameLine"/>
+    <exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps"/>
+    <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
+  </rule>
+  <!-- Don't enforce Zend's private member underscores -->
+  <rule ref="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore">
+    <severity>0</severity>
+  </rule>
+  <!-- Ignore variables that contains numbers -->
+  <rule ref="Zend.NamingConventions.ValidVariableName.ContainsNumbers">
+    <severity>0</severity>
+  </rule>
+  <!-- In practice, Symfony2 spaces multiline function calls differently than Zend -->
+  <rule ref="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket">
+    <severity>0</severity>
+  </rule>
+  <rule ref="PEAR.Functions.FunctionCallSignature.SpaceAfterCloseBracket">
+    <severity>0</severity>
+  </rule>
+  <rule ref="PEAR.Functions.FunctionCallSignature.CloseBracketLine">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.SpaceAfterFunction">
+    <severity>0</severity>
+  </rule>
+  <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.SpaceAfterUse">
+    <severity>0</severity>
+  </rule>
+
+  <!-- Lines can be N chars long (warnings), errors at M chars -->
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="120"/>
+      <property name="absoluteLineLimit" value="120"/>
+    </properties>
+  </rule>
+</ruleset>
